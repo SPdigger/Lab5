@@ -10,6 +10,10 @@ function activate(context) {
         if (!activeEditor) {
             return;
         }
+        for (let i = 0; i < decTypeArray.length; i++) {
+            decTypeArray[i].dispose();
+        }
+        decTypeArray.length = 0;
         const regHex = /(?:\#|\b0x)([a-f0-9]{6}([a-f0-9]{2})?)/gi;
         const text = activeEditor.document.getText();
         const bigArray = [];
@@ -23,7 +27,9 @@ function activate(context) {
             let matchHex = '#' + match[1];
             console.log(matchHex);
             const hexDecorationType = vscode.window.createTextEditorDecorationType({
-                backgroundColor: matchHex
+                borderWidth: '2px',
+                borderStyle: 'solid',
+                borderColor: matchHex
             });
             const tmp = [];
             tmp.push(decoration);
